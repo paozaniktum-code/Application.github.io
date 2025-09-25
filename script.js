@@ -17,9 +17,7 @@ const navSlide = () => {
     });
 }
 
-// ========================
-// SCROLL TO TOP BUTTON (New Function)
-// ========================
+// Function for Scroll to Top Button
 const scrollToTop = () => {
     const scrollBtn = document.getElementById('scrollToTopBtn');
     
@@ -34,7 +32,7 @@ const scrollToTop = () => {
 
 // Run all functions
 navSlide();
-scrollToTop(); // Run the new function
+scrollToTop();
 
 // Dynamically add keyframes for nav animation
 const styleSheet = document.createElement("style");
