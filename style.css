@@ -111,3 +111,110 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     .hero-content h1, .section-header h2 { font-size: 2.4rem; }
     .about-container { flex-direction: column; text-align: center; }
 }
+/* ========================
+   FOOTER
+========================= */
+footer {
+    background-color: var(--dark-color);
+    color: var(--secondary-color);
+    padding-top: 4rem;
+    margin: 0;
+    border-radius: 0;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+    padding: 0 8%;
+}
+
+footer h3 {
+    font-family: var(--font-serif);
+    margin-bottom: 1.5rem;
+    color: var(--white-color);
+}
+
+footer p {
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    line-height: 2.2;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-contact p {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+
+.footer-contact i {
+    margin-right: 0.8rem;
+    color: var(--primary-color);
+    margin-top: 4px;
+}
+
+.social-icons {
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.footer-newsletter input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--text-color);
+    background: transparent;
+    color: var(--white-color);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.footer-newsletter button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid #4d443f;
+}
