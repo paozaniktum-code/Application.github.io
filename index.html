@@ -3,36 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heaven and Beauty - Coming Soon</title>
+    <title>Heaven and Beauty</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <main class="container">
+    <div class="container">
         <header>
             <h1>Heaven and Beauty</h1>
+            <p class="tagline">Organic Beauty, Divinely Made.</p>
         </header>
-        
-        <section class="hero">
-            <h2>Organic Beauty, Divinely Made.</h2>
+
+        <main>
             <p>
-                พบกับผลิตภัณฑ์ความงามจากธรรมชาติ ที่จะมอบประสบการณ์ความผ่อนคลายราวกับอยู่บนสวรรค์
-                เว็บไซต์ของเรากำลังจะเปิดให้บริการเต็มรูปแบบเร็วๆ นี้
+                สัมผัสความงามอันบริสุทธิ์จากธรรมชาติ ที่จะปรนนิบัติผิวและจิตใจของคุณ
+                <br>เว็บไซต์ฉบับสมบูรณ์พร้อมคอลเลคชั่นผลิตภัณฑ์ออร์แกนิคของเรา
+                <br><strong>กำลังจะเปิดตัวเร็วๆ นี้</strong>
             </p>
-            <p class="announcement">
-                ติดตามเราเพื่อรับข่าวสารและโปรโมชั่นสุดพิเศษ
-            </p>
+            
+            <a href="#" class="cta-button">รับข่าวสารและส่วนลดพิเศษ</a>
+            
             <div class="social-links">
                 <a href="#">Facebook</a>
                 <a href="#">Instagram</a>
+                <a href="#">LINE</a>
             </div>
-        </section>
-
+        </main>
+        
         <footer>
-            <p>&copy; 2025 Heaven and Beauty. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> Heaven and Beauty. All Rights Reserved.</p>
         </footer>
-    </main>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
