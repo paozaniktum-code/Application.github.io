@@ -1,51 +1,6 @@
 /* --- CSS STYLES --- */
 
-/* 1. General Setup & Background */
-:root {
-    --pink-bg: #FEF5F7;      
-    --primary-pink: #D8A7B1; 
-    --dark-pink: #B48B92;    
-    --text-color: #5D5D5D;   
-    --accent-green: #A3B899; 
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Nunito', sans-serif;
-    --page-bg: #F9F6F1; /* สีพื้นหลังใหม่ */
-}
-
-body {
-    font-family: var(--font-body);
-    /* ===== ส่วนที่แก้ไข (Background) ===== */
-    background-color: var(--page-bg); 
-    background-image: none; /* เอาภาพดอกไม้ออก */
-    /* ================================ */
-    color: var(--text-color);
-    margin: 0;
-    text-align: center;
-}
-
-/* 2. Page Containers & Overlays */
-.container { 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 2rem;
-    background-color: transparent; /* ทำให้ Splash Screen โปร่งใส */
-}
-
-.page-container {
-    max-width: 960px;
-    width: 100%;
-    margin: 2rem auto;
-    padding: 0; /* ไม่ต้องมี padding แล้ว */
-    background-color: transparent; /* ไม่ต้องมีพื้นหลังซ้อน */
-    border-radius: 0;
-    box-shadow: none;
-}
-
-/* (โค้ดส่วนที่ 3-6 Typography, Buttons, Nav, Sections เหมือนเดิม ยกเว้นส่วนที่แก้ไขด้านล่าง) */
-/* ... */
+/* ... existing code from part 1-6 ... */
 
 
 /* ============================================= */
@@ -68,7 +23,7 @@ body {
     transition: all 0.3s ease;
     text-align: left;
     cursor: pointer;
-    display: flex; /* ทำให้ item ข้างในเรียงข้างกัน */
+    display: flex;
     align-items: center;
     padding: 1.5rem;
     gap: 1.5rem;
@@ -80,19 +35,21 @@ body {
 }
 
 .card-text-content {
-    flex: 1; /* ให้ส่วนข้อความยืดหยุ่น */
+    flex: 1;
 }
 .card-image-content {
-    flex-shrink: 0; /* ไม่ให้รูปภาพหดตัว */
+    flex-shrink: 0;
     width: 150px;
 }
 
-.product-card h3 {
+/* .product-card h3 {  <-- ลบส่วนนี้ออกทั้งหมด
     font-family: var(--font-heading);
     color: var(--dark-pink);
     font-size: 1.5em;
     margin: 0 0 0.5rem;
-}
+} 
+*/
+
 .product-card .product-desc {
     font-size: 1em;
     margin-bottom: 1rem;
@@ -120,7 +77,7 @@ body {
     background-color: var(--dark-pink);
 }
 
-/* ทำให้การ์ดเรียงแนวตั้งบนจอมือถือ */
+/* ... existing responsive and other code ... */
 @media (max-width: 500px) {
     .product-grid {
         grid-template-columns: 1fr;
@@ -134,8 +91,3 @@ body {
         margin-bottom: 1rem;
     }
 }
-/* ============================================= */
-
-
-/* (โค้ดส่วนที่เหลือ Modal, Animations, Footer สามารถใช้ของเดิมได้เลย) */
-/* ... */
