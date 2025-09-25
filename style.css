@@ -1,0 +1,62 @@
+/* ใช้ฟอนต์ที่นำเข้ามาและตั้งค่าสีหลักตามคอนเซ็ปต์ */
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #FEF5F7; /* สีชมพูอ่อนมากๆ (Creamy Pink) */
+    color: #5D5D5D; /* สีเทาเข้มสำหรับตัวอักษร */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    padding: 20px;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #D8A7B1; /* สีชมพูกุหลาบ (Dusty Rose) */
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.2em;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-bottom: 1.5em;
+}
+
+p {
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.announcement {
+    margin-top: 2em;
+    font-weight: bold;
+    color: #B48B92; /* สีชมพูที่เข้มขึ้นเล็กน้อย */
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #A3B899; /* สีเขียว Sage Green */
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #D8A7B1; /* เปลี่ยนเป็นสีชมพูเมื่อเมาส์ชี้ */
+}
+
+footer {
+    margin-top: 3em;
+    font-size: 0.9em;
+    color: #B48B92;
+}
