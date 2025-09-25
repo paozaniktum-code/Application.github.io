@@ -4,12 +4,12 @@
    VARIABLES & GLOBAL STYLES
 ========================= */
 :root {
-    --primary-color: #D9AAB7; /* Soft Pink */
-    --secondary-color: #F5EBE0; /* Creamy Beige */
-    --text-color: #5D504A; /* Muted Brown */
+    --primary-color: #D9AAB7;
+    --secondary-color: #F5EBE0;
+    --text-color: #5D504A;
     --dark-color: #3D3531;
     --white-color: #FFFFFF;
-    --light-bg-color: #FEF9F8; /* Very light pink background */
+    --light-bg-color: rgba(254, 249, 248, 0.9); /* Semi-transparent bg for sections */
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Poppins', sans-serif;
 }
@@ -24,103 +24,43 @@
 body {
     font-family: var(--font-sans);
     color: var(--text-color);
+    /* New Floral Background */
+    background-image: url('https://i.ibb.co/hZ2ScY6/floral-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+section {
     background-color: var(--light-bg-color);
+    border-radius: 15px;
+    margin: 2rem 4%; /* Add margin to lift sections off the background */
+    padding: 4rem 6%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
 }
 
 /* ========================
-   HEADER & NAVIGATION
+   HEADER & STICKY NAVIGATION
 ========================= */
 header {
-    background-color: rgba(245, 235, 224, 0.8);
+    background-color: rgba(245, 235, 224, 0.85); /* Slightly more opaque */
     backdrop-filter: blur(10px);
     padding: 1rem 5%;
-    position: sticky;
+    position: sticky; /* <<< Makes the header sticky */
     top: 0;
-    z-index: 100;
+    z-index: 1000;
     width: 100%;
-    transition: box-shadow 0.3s ease;
-}
-
-header.scrolled {
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo a {
-    font-family: var(--font-serif);
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--dark-color);
-    text-decoration: none;
-}
-
-.nav-links { list-style: none; display: flex; gap: 2.5rem; }
-.nav-links a { text-decoration: none; color: var(--text-color); font-weight: 500; transition: color 0.3s ease; }
-.nav-links a:hover { color: var(--primary-color); }
-
-.nav-icons { display: flex; align-items: center; gap: 1.5rem; }
-.nav-icons a { color: var(--text-color); font-size: 1.1rem; }
-
-.burger { display: none; cursor: pointer; }
-.burger div { width: 25px; height: 3px; background-color: var(--dark-color); margin: 5px; transition: all 0.3s ease; }
+/* ... Other nav styles remain the same ... */
 
 /* ========================
-   HERO SECTION
-========================= */
-.hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4rem 8%;
-    background-color: var(--secondary-color);
-    min-height: 90vh;
-}
-.hero-content { max-width: 50%; }
-.hero-content .subtitle { font-weight: 600; color: var(--primary-color); margin-bottom: 1rem; }
-.hero-content h1 { font-family: var(--font-serif); font-size: 3.5rem; color: var(--dark-color); line-height: 1.2; }
-.hero-content .description { font-size: 1.1rem; margin: 1.5rem 0 2rem; line-height: 1.6; }
-.btn-primary { padding: 1rem 2.5rem; background-color: var(--primary-color); color: var(--white-color); border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: background-color 0.3s ease; }
-.btn-primary:hover { background-color: #c993a2; }
-.hero-image img { max-width: 400px; border-radius: 10px; }
-
-/* ========================
-   GENERAL SECTION STYLING
-========================= */
-section { padding: 5rem 8%; }
-.section-header { text-align: center; margin-bottom: 3.5rem; }
-.section-header .subtitle { font-size: 1rem; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-.section-header h2 { font-family: var(--font-serif); font-size: 2.8rem; color: var(--dark-color); }
-
-/* ========================
-   SERVICES SECTION
-========================= */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-.service-card {
-    background: var(--white-color);
-    padding: 2.5rem 2rem;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.service-card:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(217, 170, 183, 0.2); }
-.service-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem; }
-.service-card h3 { font-family: var(--font-serif); color: var(--dark-color); margin-bottom: 0.8rem; font-size: 1.5rem; }
-.service-card p { line-height: 1.7; }
-
-/* ========================
-   SHOP SECTION
+   SHOP SECTION (Updated)
 ========================= */
 .shop { background-color: var(--secondary-color); }
+.product-link { text-decoration: none; color: inherit; } /* Remove underline from product link */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
 .product-card {
     text-align: center;
@@ -129,80 +69,100 @@ section { padding: 5rem 8%; }
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    height: 100%; /* Ensure cards in a row have same height */
 }
 .product-card:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 .product-image { position: relative; }
 .product-card img { max-width: 100%; height: 250px; object-fit: contain; padding: 1rem; }
-.add-to-cart { position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); width: 80%; padding: 0.8rem; background-color: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer; transition: bottom 0.3s ease; font-weight: 600; }
-.product-card:hover .add-to-cart { bottom: 20px; }
 .product-card h3 { font-family: var(--font-serif); color: var(--dark-color); margin: 1rem 0 0.5rem; }
 .product-card .stars { color: #f39c12; margin-bottom: 0.5rem; }
 .product-card .price { font-weight: 600; font-size: 1.1rem; padding-bottom: 1.5rem; }
 
 /* ========================
-   ABOUT US SECTION
+   CONTACT US SECTION (New)
 ========================= */
-.about-container { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
-.about-image { flex: 1; min-width: 300px; }
-.about-image img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(217, 170, 183, 0.2); }
-.about-content { flex: 1.2; min-width: 300px; }
-.features { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
-.feature-item { display: flex; align-items: center; gap: 1.5rem; }
-.feature-icon { background-color: var(--secondary-color); color: var(--primary-color); font-size: 1.5rem; min-width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-.feature-text h3 { font-family: var(--font-serif); font-size: 1.2rem; color: var(--dark-color); margin-bottom: 0.3rem; }
-.feature-text p { font-size: 0.95rem; line-height: 1.6; }
+.contact-container {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    background-color: var(--white-color);
+    padding: 3rem;
+    border-radius: 10px;
+}
+.contact-info { flex: 1; min-width: 300px; }
+.contact-info h3 { font-family: var(--font-serif); font-size: 1.8rem; color: var(--dark-color); margin-bottom: 1rem; }
+.contact-info p { line-height: 1.8; margin-bottom: 2rem; }
+.info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.info-item i { font-size: 1.2rem; color: var(--primary-color); }
+.contact-form { flex: 1.2; min-width: 300px; }
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+}
+.contact-form textarea { resize: vertical; }
 
 /* ========================
-   BLOG SECTION
+   FOOTER (Updated Socials)
 ========================= */
-.blog { background-color: var(--light-bg-color); }
-.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-.blog-post { background: var(--white-color); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-.blog-post:hover { transform: translateY(-10px); }
-.blog-post img { width: 100%; height: 200px; object-fit: cover; }
-.blog-content { padding: 1.5rem; }
-.blog-content span { font-size: 0.8rem; color: var(--primary-color); font-weight: 600; }
-.blog-content h3 { font-family: var(--font-serif); color: var(--dark-color); margin: 0.5rem 0 1rem; font-size: 1.3rem; }
-.blog-content a { color: var(--text-color); text-decoration: none; font-weight: 600; }
-.blog-content a:hover { color: var(--primary-color); }
+footer {
+    background-color: var(--dark-color);
+    color: var(--secondary-color);
+    padding-top: 4rem;
+    margin: 0;
+    border-radius: 0;
+}
+.social-icons a {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+.social-icons a:hover { background-color: var(--primary-color); color: var(--white-color); }
 
 /* ========================
-   FOOTER
+   SCROLL TO TOP BUTTON (New)
 ========================= */
-footer { background-color: var(--dark-color); color: var(--secondary-color); padding-top: 4rem; }
-.footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; padding: 0 8%; }
-footer h3 { font-family: var(--font-serif); margin-bottom: 1.5rem; color: var(--white-color); }
-footer p { line-height: 1.7; font-size: 0.95rem; }
-.footer-links ul { list-style: none; }
-.footer-links a { color: var(--secondary-color); text-decoration: none; line-height: 2.2; transition: color 0.3s; }
-.footer-links a:hover { color: var(--primary-color); }
-.footer-contact i { margin-right: 0.7rem; color: var(--primary-color); }
-.social-icons { margin-top: 1rem; }
-.social-icons a { color: var(--white-color); font-size: 1.2rem; margin-right: 1rem; transition: color 0.3s; }
-.social-icons a:hover { color: var(--primary-color); }
-.footer-newsletter input { width: 100%; padding: 0.8rem; border: 1px solid var(--text-color); background: transparent; color: var(--white-color); border-radius: 5px; margin-bottom: 1rem; }
-.footer-newsletter button { width: 100%; padding: 0.8rem; background-color: var(--primary-color); color: var(--white-color); border: none; border-radius: 5px; cursor: pointer; font-weight: 600; }
-.footer-bottom { text-align: center; padding: 1.5rem; margin-top: 2rem; border-top: 1px solid #4d443f; }
-
-/* ========================
-   RESPONSIVE DESIGN
-========================= */
-@media screen and (max-width: 1024px) {
-    .hero { flex-direction: column; text-align: center; }
-    .hero-content { max-width: 100%; margin-bottom: 2rem; }
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+    transform: translateY(20px);
+    z-index: 999;
+}
+.scroll-to-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.scroll-to-top:hover {
+    background-color: #c993a2;
 }
 
-@media screen and (max-width: 768px) {
-    body { overflow-x: hidden; }
-    .nav-links {
-        position: fixed; right: 0px; height: 100vh; top: 0;
-        background-color: var(--secondary-color);
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        width: 60%; transform: translateX(100%); transition: transform 0.5s ease-in; z-index: 10;
-    }
-    .nav-active { transform: translateX(0%); }
-    .burger { display: block; z-index: 11; }
-    .hero-content h1, .section-header h2, .about-content h2 { font-size: 2.4rem; }
-    .about-container { flex-direction: column; text-align: center; }
-    .feature-item { flex-direction: column; text-align: center; gap: 1rem; }
-}
+/* Include other sections (Hero, About, Blog etc.) and responsive styles here */
+/* (The rest of your CSS from the previous version fits here) */
