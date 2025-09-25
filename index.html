@@ -13,27 +13,47 @@
 </head>
 <body>
 
-    <div class="container">
+    <div id="splash-screen" class="container fade-in">
         <header>
             <h1>Heaven and Beauty</h1>
             <p class="tagline">Organic Beauty, Divinely Made.</p>
         </header>
-
         <main>
-            <p>
-                สัมผัสความงามอันบริสุทธิ์จากธรรมชาติ ที่จะปรนนิบัติผิวและจิตใจของคุณ
-                <br>เว็บไซต์ฉบับสมบูรณ์พร้อมคอลเลคชั่นผลิตภัณฑ์ออร์แกนิคของเรา
-                <br><strong>กำลังจะเปิดตัวเร็วๆ นี้</strong>
-            </p>
-            
-            <a href="#" class="cta-button">รับข่าวสารและส่วนลดพิเศษ</a>
-            
-            <div class="social-links">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">LINE</a>
-            </div>
+            <p>สัมผัสความงามอันบริสุทธิ์จากธรรมชาติ<br>ที่จะปรนนิบัติผิวและจิตใจของคุณ</p>
+            <button id="enter-button" class="cta-button">เข้าสู่เว็บไซต์</button>
         </main>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <nav>
+            <ul class="menu">
+                <li><a href="#home">หน้าหลัก</a></li>
+                <li><a href="#">สินค้า</a></li>
+                <li><a href="#">เกี่ยวกับเรา</a></li>
+                <li><a href="#contact">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <section id="home">
+                 <h2>ยินดีต้อนรับสู่ Heaven and Beauty</h2>
+                 <p>เราคัดสรรส่วนผสมที่ดีที่สุดจากธรรมชาติ เพื่อสร้างสรรค์ผลิตภัณฑ์ออร์แกนิคที่ปลอดภัยและอ่อนโยนต่อผิวคุณ</p>
+            </section>
+
+            <hr>
+
+            <section id="contact">
+                <h2>ช่องทางการติดต่อ</h2>
+                <p>คุณสามารถสอบถามข้อมูลเพิ่มเติมเกี่ยวกับผลิตภัณฑ์ได้ที่</p>
+                <p><strong>Email:</strong> contact@heavenandbeauty.com</p>
+                
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">LINE</a>
+                </div>
+            </section>
+        </div>
         
         <footer>
             <p>&copy; <span id="currentYear"></span> Heaven and Beauty. All Rights Reserved.</p>
