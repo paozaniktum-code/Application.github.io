@@ -1,177 +1,38 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>วงล้อสุ่มรายชื่อ — Advanced</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      background: radial-gradient(1200px 600px at 70% -10%, #a78bfa 5%, #3b82f6 45%, #0ea5e9 80%, #0ea5e900 100%),
-                  linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #7c3aed 100%);
-    }
-    canvas { filter: drop-shadow(0 10px 24px rgba(0,0,0,0.35)); }
-    .switch { position: relative; width: 48px; height: 28px; display: inline-block; }
-    .switch input { display: none; }
-    .slider { position: absolute; cursor: pointer; inset: 0; background: #cbd5e1; border-radius: 9999px; transition: .25s; }
-    .slider:before { content: ""; position: absolute; height: 22px; width: 22px; left: 3px; top: 3px; background: white; border-radius: 9999px; transition: .25s; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
-    input:checked + .slider { background: #22c55e; }
-    input:checked + .slider:before { transform: translateX(20px); }
-    .pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 36px solid #ef4444; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); z-index: 10; }
-    .badge { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); }
-    #wheelPopup { opacity: 0; pointer-events: none; transition: opacity .3s ease-in-out; }
-    #wheelPopup.visible { opacity: 1; pointer-events: auto; }
-    #wheelPopup.visible #winnerPopupContent { animation: popup-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-    @keyframes popup-appear { from { transform: scale(.8) } to { transform: scale(1) } }
-    .confetti { position: absolute; width: 10px; height: 10px; background: #f00; opacity: 0; top: -20px; animation: confetti-fall 3s linear forwards; }
-    @keyframes confetti-fall { 0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1 } 100% { transform: translateY(400px) rotateZ(720deg); opacity: 0 } }
-    input.weightInput { width: 60px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heaven and Beauty - Coming Soon</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
 </head>
-<body class="min-h-screen text-slate-100 antialiased">
-  <div class="max-w-7xl mx-auto px-6 py-10">
-    <header class="mb-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">วงล้อสุ่มรายชื่อ</h1>
-          <p class="text-slate-200/90 mt-2">เพิ่มรายชื่อ หมุนลุ้น — พร้อมเสียงและน้ำหนัก</p>
-        </div>
-      </div>
-    </header>
+<body>
 
-    <main class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-      <section class="relative">
-        <div class="relative mx-auto w-full max-w-[560px] aspect-square">
-          <div class="pointer"></div>
-          <canvas id="wheel" width="800" height="800" class="w-full h-full rounded-full bg-slate-900/10"></canvas>
-          <div id="wheelPopup" class="absolute inset-0 flex items-center justify-center z-20">
-            <div id="winnerPopupContent" class="relative text-center p-8 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/20 shadow-2xl w-10/12 max-w-sm overflow-hidden" style="transform: scale(.8);">
-              <div id="confettiContainer" class="absolute inset-0 pointer-events-none"></div>
-              <p class="text-xl text-amber-300 font-semibold mb-1">ยินดีด้วย!</p>
-              <h2 id="winnerNamePopup" class="text-4xl md:text-5xl font-bold text-white tracking-tight break-words">-</h2>
-              <button id="closePopupBtn" class="mt-6 px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm font-semibold">ปิด</button>
+    <main class="container">
+        <header>
+            <h1>Heaven and Beauty</h1>
+        </header>
+        
+        <section class="hero">
+            <h2>Organic Beauty, Divinely Made.</h2>
+            <p>
+                พบกับผลิตภัณฑ์ความงามจากธรรมชาติ ที่จะมอบประสบการณ์ความผ่อนคลายราวกับอยู่บนสวรรค์
+                เว็บไซต์ของเรากำลังจะเปิดให้บริการเต็มรูปแบบเร็วๆ นี้
+            </p>
+            <p class="announcement">
+                ติดตามเราเพื่อรับข่าวสารและโปรโมชั่นสุดพิเศษ
+            </p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
             </div>
-          </div>
-          <div id="resultBox" class="absolute -bottom-12 left-1/2 text-center" style="transform: translate(-50%, calc(100% + 40px));">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/20">
-              <span class="text-sm text-white/80">ผลลัพธ์</span>
-              <strong id="resultName" class="text-white font-semibold">-</strong>
-            </div>
-          </div>
-        </div>
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <button id="spinBtn" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 font-semibold text-slate-900">หมุนวงล้อ</button>
-          <button id="resetBtn" class="px-5 py-3 rounded-xl bg-slate-100/10 hover:bg-slate-100/20 font-semibold text-white border border-white/20">รีเซ็ต</button>
-        </div>
-      </section>
-      <aside class="w-full">
-        <div class="rounded-2xl bg-white/10 backdrop-blur border border-white/20 p-5">
-          <form id="addForm" class="flex gap-3">
-            <input id="nameInput" type="text" placeholder="ชื่อ" class="flex-1 px-4 py-3 rounded-xl bg-white/90 text-slate-900"/>
-            <input id="weightInput" type="number" min="1" value="1" class="weightInput px-3 py-2 rounded-xl bg-white/90 text-slate-900" title="น้ำหนัก"/>
-            <button class="px-5 py-3 rounded-xl bg-sky-400 font-semibold text-slate-900">เพิ่ม</button>
-          </form>
-          <ul id="nameList" class="mt-5 grid grid-cols-1 gap-2"></ul>
-        </div>
-      </aside>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Heaven and Beauty. All rights reserved.</p>
+        </footer>
     </main>
-  </div>
 
-  <audio id="spinSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
-  <audio id="winSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
-
-  <script>
-    const wheel=document.getElementById('wheel'); const ctx=wheel.getContext('2d');
-    const spinBtn=document.getElementById('spinBtn'); const resetBtn=document.getElementById('resetBtn');
-    const addForm=document.getElementById('addForm'); const nameInput=document.getElementById('nameInput');
-    const weightInput=document.getElementById('weightInput'); const nameList=document.getElementById('nameList');
-    const resultName=document.getElementById('resultName');
-    const wheelPopup=document.getElementById('wheelPopup'); const winnerNamePopup=document.getElementById('winnerNamePopup');
-    const closePopupBtn=document.getElementById('closePopupBtn');
-    const spinSound=document.getElementById('spinSound'); const winSound=document.getElementById('winSound');
-
-    let entries=[{id:crypto.randomUUID(),name:'ตูน',weight:1,color:'#22c55e'},
-                 {id:crypto.randomUUID(),name:'เก๋',weight:2,color:'#3b82f6'},
-                 {id:crypto.randomUUID(),name:'บอส',weight:1,color:'#f59e0b'}];
-
-    let rotation=0; let spinning=false; let animId;
-
-    function drawWheel(){
-      const w=wheel.width,h=wheel.height,cx=w/2,cy=h/2,r=Math.min(cx,cy)-14;
-      ctx.clearRect(0,0,w,h); ctx.save(); ctx.translate(cx,cy);
-      const totalWeight=entries.reduce((s,e)=>s+e.weight,0);
-      let angleStart=rotation;
-      entries.forEach(e=>{
-        const angle=e.weight/totalWeight*2*Math.PI;
-        ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0,r,angleStart,angleStart+angle);
-        ctx.fillStyle=e.color; ctx.fill();
-        ctx.strokeStyle='white'; ctx.stroke();
-        ctx.save(); ctx.rotate(angleStart+angle/2);
-        ctx.fillStyle='#000'; ctx.font='bold 20px sans-serif'; ctx.textAlign='right';
-        ctx.fillText(e.name,r-10,0); ctx.restore();
-        angleStart+=angle;
-      });
-      ctx.restore();
-    }
-
-    function getWinner(){
-      const totalWeight=entries.reduce((s,e)=>s+e.weight,0);
-      const angle=( -rotation%(2*Math.PI) +2*Math.PI )%(2*Math.PI);
-      let acc=0;
-      for(let e of entries){
-        const seg=e.weight/totalWeight*2*Math.PI;
-        if(angle<acc+seg) return e;
-        acc+=seg;
-      }
-      return entries[0];
-    }
-
-    function spin(){
-      if(spinning||entries.length<2)return;
-      spinning=true; const start=rotation;
-      const extra=10*Math.PI+Math.random()*2*Math.PI;
-      const target=start+extra; const duration=5000; const t0=performance.now();
-      spinSound.play();
-      const step=(t)=>{
-        const p=Math.min((t-t0)/duration,1);
-        rotation=start+(target-start)*(1-Math.pow(1-p,3));
-        drawWheel();
-        if(p<1){animId=requestAnimationFrame(step);}else{
-          spinning=false;
-          const winner=getWinner();
-          resultName.textContent=winner.name;
-          winnerNamePopup.textContent=winner.name;
-          wheelPopup.classList.add('visible');
-          winSound.play();
-        }
-      };
-      animId=requestAnimationFrame(step);
-    }
-
-    addForm.addEventListener('submit',e=>{
-      e.preventDefault();
-      if(!nameInput.value.trim())return;
-      entries.push({id:crypto.randomUUID(),name:nameInput.value.trim(),weight:parseInt(weightInput.value)||1,color:'#'+Math.floor(Math.random()*16777215).toString(16)});
-      nameInput.value=''; weightInput.value=1; renderList(); drawWheel();
-    });
-
-    function renderList(){
-      nameList.innerHTML='';
-      entries.forEach(e=>{
-        const li=document.createElement('li');
-        li.className='flex justify-between bg-white/10 px-3 py-2 rounded-lg';
-        li.innerHTML=`<span>${e.name} (x${e.weight})</span>`;
-        nameList.appendChild(li);
-      });
-    }
-
-    spinBtn.onclick=spin; resetBtn.onclick=()=>{rotation=0;drawWheel();resultName.textContent='-';wheelPopup.classList.remove('visible');};
-    closePopupBtn.onclick=()=>wheelPopup.classList.remove('visible');
-
-    function fitCanvas(){const ratio=window.devicePixelRatio||1;const rect=wheel.getBoundingClientRect();wheel.width=rect.width*ratio;wheel.height=rect.height*ratio;ctx.scale(ratio,ratio);drawWheel();}
-    window.addEventListener('resize',fitCanvas);
-
-    renderList(); fitCanvas();
-  </script>
 </body>
 </html>
