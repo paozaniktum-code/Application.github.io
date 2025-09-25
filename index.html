@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rasm - Wellness & Beauty</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
 
@@ -15,18 +15,17 @@
                 <a href="#">Rasm</a>
             </div>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#">Blog</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#blog">Blog</a></li>
                 <li><a href="#">Contact Us</a></li>
             </ul>
             <div class="nav-icons">
                 <a href="#"><i class="fas fa-search"></i></a>
                 <a href="#"><i class="fas fa-user"></i></a>
                 <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                <button class="shop-now-btn">Shop Now</button>
             </div>
             <div class="burger">
                 <div class="line1"></div>
@@ -37,65 +36,136 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero" id="home">
             <div class="hero-content">
-                <h1>Luxurious skincare products<br>premium ingredients to provide</h1>
-                <p>Embark on a skincare journey that celebrates the essence of vibrant beauty. Our botanical skincare collection is a symphony.</p>
-                <button class="btn-primary">Shop Now</button>
+                <p class="subtitle">Nourishing Botanicals For Radiant Skin</p>
+                <h1>Luxurious Skincare, Premium Ingredients</h1>
+                <p class="description">Embark on a skincare journey that celebrates the essence of vibrant beauty. Our botanical skincare collection is a symphony.</p>
+                <button class="btn-primary">Explore Products</button>
             </div>
             <div class="hero-image">
                 <img src="https://i.ibb.co/6PqjBgr/hero-woman.png" alt="Woman with skincare product">
             </div>
         </section>
-
-        <section class="products">
+        
+        <section class="services" id="services">
             <div class="section-header">
-                <h2>Reveal Your Beauty Pairing with Rasm's</h2>
-                <a href="#" class="view-more">View More <i class="fas fa-arrow-right"></i></a>
+                <p class="subtitle">Our Treatments</p>
+                <h2>Wellness For Your Soul</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-spa"></i></div>
+                    <h3>Facial Therapy</h3>
+                    <p>Customized facial treatments to rejuvenate and restore your skin's natural glow.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
+                    <h3>Skin Consulting</h3>
+                    <p>Expert advice to help you build the perfect skincare routine for your unique needs.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>Organic Treatments</h3>
+                    <p>Pure, plant-based therapies that nourish your skin with the goodness of nature.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="shop" id="shop">
+            <div class="section-header">
+                 <p class="subtitle">Our Products</p>
+                <h2>Reveal Your Beauty Pairing</h2>
             </div>
             <div class="product-grid">
                 <div class="product-card">
-                    <img src="https://i.ibb.co/k2WkL2b/product1.png" alt="Milk Cream">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/k2WkL2b/product1.png" alt="Milk Cream">
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
                     <h3>Milk Cream</h3>
                     <div class="stars">★★★★☆</div>
                     <p class="price">$32.00</p>
                 </div>
                 <div class="product-card">
-                    <img src="https://i.ibb.co/hZ5H3Vb/product2.png" alt="Face Foundation">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/hZ5H3Vb/product2.png" alt="Face Foundation">
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
                     <h3>Face Foundation</h3>
                     <div class="stars">★★★★★</div>
                     <p class="price">$25.00</p>
                 </div>
                 <div class="product-card">
-                    <img src="https://i.ibb.co/y4p7PjJ/product3.png" alt="Skincare Cream">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/y4p7PjJ/product3.png" alt="Skincare Cream">
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
                     <h3>Skincare Cream</h3>
                     <div class="stars">★★★★☆</div>
                     <p class="price">$45.00</p>
                 </div>
                 <div class="product-card">
-                    <img src="https://i.ibb.co/RSCM21q/product4.png" alt="Face Cream">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/RSCM21q/product4.png" alt="Face Cream">
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
                     <h3>Face Cream</h3>
                     <div class="stars">★★★★★</div>
                     <p class="price">$38.00</p>
                 </div>
             </div>
         </section>
+        
+        <section class="about-us" id="about">
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="https://i.ibb.co/tZ7X2Yc/about-us-image.jpg" alt="Natural Skincare Ingredients">
+                </div>
+                <div class="about-content">
+                    <p class="subtitle">Unveiling Beauty at Your Fingertips</p>
+                    <h2>Touch Your Skin With Rasm's Products</h2>
+                    <p class="description">
+                        At Rasm, we believe in a skincare journey that harmonizes nature and science. Born from a passion for pure, botanical ingredients, our mission is to deliver products that make you feel serenely beautiful from within.
+                    </p>
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                            <div class="feature-text">
+                                <h3>Premium Organic Components</h3>
+                                <p>We select only the finest natural ingredients, sourced ethically and sustainably.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                            <div class="feature-text">
+                                <h3>High Quality & Cruelty-Free</h3>
+                                <p>Our commitment is to provide products that have never been tested on animals.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section class="blog">
+        <section class="blog" id="blog">
              <div class="section-header">
-                <h2>Our most recent advancements and changes</h2>
+                <p class="subtitle">Our Insights</p>
+                <h2>Recent Advancements & Changes</h2>
             </div>
             <div class="blog-grid">
                 <div class="blog-post">
                     <img src="https://i.ibb.co/Q8QJ5j0/blog1.png" alt="Blog Post 1">
                     <div class="blog-content">
+                        <span>Skincare | July 19, 2024</span>
                         <h3>Enchanté Elegance: The Pure Cosmetics Gallery</h3>
                         <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="blog-post">
                     <img src="https://i.ibb.co/Qn1C9dY/blog2.png" alt="Blog Post 2">
-                    <div class="blog-content">
+                     <div class="blog-content">
+                        <span>Beauty | July 15, 2024</span>
                         <h3>Chic Charm: Cosmetics Collection Haven</h3>
                          <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -103,7 +173,8 @@
                 <div class="blog-post">
                     <img src="https://i.ibb.co/yY1h2d0/blog3.png" alt="Blog Post 3">
                      <div class="blog-content">
-                        <h3>Luxe Looks: Beauty Emporium Emporian.</h3>
+                        <span>Wellness | July 12, 2024</span>
+                        <h3>Luxe Looks: Beauty Emporium Emporian</h3>
                          <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -115,7 +186,7 @@
         <div class="footer-container">
             <div class="footer-about">
                 <h3 class="logo">Rasm</h3>
-                <p>We are dedicated to creating skincare that is clean, effective, and cruelty-free.</p>
+                <p>Dedicated to creating clean, effective, and cruelty-free skincare that celebrates your natural beauty.</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -126,17 +197,17 @@
             <div class="footer-links">
                 <h3>Quick Link</h3>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Cosmetics Shop</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#shop">Cosmetics Shop</a></li>
                     <li><a href="#">Privacy Notice</a></li>
-                    <li><a href="#">New Arrival</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Paltan, NY City</p>
+                <p><i class="fas fa-map-marker-alt"></i> Bangkok, Thailand</p>
                 <p><i class="fas fa-phone-alt"></i> 123-456-7890</p>
-                <p><i class="fas fa-envelope"></i> example@rasm.com</p>
+                <p><i class="fas fa-envelope"></i> contact@rasm.com</p>
             </div>
             <div class="footer-newsletter">
                 <h3>Newsletter</h3>
