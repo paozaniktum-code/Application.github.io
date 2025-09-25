@@ -9,314 +9,133 @@
     --accent-green: #A3B899; 
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Nunito', sans-serif;
+    --page-bg: #F9F6F1; /* สีพื้นหลังใหม่ */
 }
 
 body {
     font-family: var(--font-body);
-    background-image: url('background.jpg'); 
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
+    /* ===== ส่วนที่แก้ไข (Background) ===== */
+    background-color: var(--page-bg); 
+    background-image: none; /* เอาภาพดอกไม้ออก */
+    /* ================================ */
     color: var(--text-color);
     margin: 0;
     text-align: center;
 }
 
 /* 2. Page Containers & Overlays */
-.container { /* For Splash Screen */
+.container { 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 2rem;
-    background-color: rgba(255, 245, 247, 0.85); /* Overlay */
+    background-color: transparent; /* ทำให้ Splash Screen โปร่งใส */
 }
 
-.page-container { /* For Main Content */
+.page-container {
     max-width: 960px;
     width: 100%;
     margin: 2rem auto;
-    padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.9); /* Overlay */
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    padding: 0; /* ไม่ต้องมี padding แล้ว */
+    background-color: transparent; /* ไม่ต้องมีพื้นหลังซ้อน */
+    border-radius: 0;
+    box-shadow: none;
 }
 
-/* 3. Typography */
-h1 {
-    font-family: var(--font-heading);
-    color: var(--primary-pink);
-    font-size: 3em;
-    margin: 0;
-}
+/* (โค้ดส่วนที่ 3-6 Typography, Buttons, Nav, Sections เหมือนเดิม ยกเว้นส่วนที่แก้ไขด้านล่าง) */
+/* ... */
 
-h2 {
-    font-family: var(--font-heading);
-    color: var(--dark-pink);
-    font-size: 2.2em;
-    margin-top: 0;
-    margin-bottom: 2rem;
-}
 
-.tagline {
-    font-family: var(--font-heading);
-    font-size: 1.2em;
-    color: var(--dark-pink);
-    margin-bottom: 2rem;
-    font-style: italic;
-}
-
-p {
-    line-height: 1.7;
-    font-size: 1.1em;
-}
-
-/* 4. Buttons & Links */
-.cta-button, button#enter-button {
-    display: inline-block;
-    background-color: var(--primary-pink);
-    color: white;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    margin-top: 2rem;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: 1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(216, 167, 177, 0.4);
-}
-
-.cta-button:hover, button#enter-button:hover {
-    background-color: var(--dark-pink);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(216, 167, 177, 0.6);
-}
-
-/* 5. Navigation Menu */
-nav {
-    width: 100%;
-    padding: 1rem 0;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--primary-pink);
-}
-
-ul.menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
-
-ul.menu a {
-    text-decoration: none;
-    color: var(--dark-pink);
-    font-weight: 600;
-    padding: 0.5rem 0;
-    position: relative;
-    transition: color 0.3s;
-}
-
-ul.menu a:hover {
-    color: var(--primary-pink);
-}
-
-ul.menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-pink);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-ul.menu a:hover::after {
-    transform: scaleX(1);
-}
-
-/* 6. Sections */
-section {
+/* ============================================= */
+/* ===== ส่วนที่แก้ไข (Product Section) ===== */
+/* ============================================= */
+#products {
     padding: 2rem 0;
 }
 
-hr {
-    border: none;
-    height: 1px;
-    background-color: #E8D7DA;
-    margin: 1rem 0;
-}
-
-.social-links {
-    margin-top: 1.5rem;
-}
-
-.social-links a {
-    text-decoration: none;
-    color: var(--accent-green);
-    margin: 0 1rem;
-    font-weight: 600;
-    transition: color 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--primary-pink);
-}
-
-/* 7. Product Section */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 2rem;
 }
 
 .product-card {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(180, 139, 146, 0.1);
-    overflow: hidden;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    text-align: center;
-    padding-bottom: 1.5rem;
+    text-align: left;
     cursor: pointer;
+    display: flex; /* ทำให้ item ข้างในเรียงข้างกัน */
+    align-items: center;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    overflow: hidden;
 }
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(180, 139, 146, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
-.product-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
+
+.card-text-content {
+    flex: 1; /* ให้ส่วนข้อความยืดหยุ่น */
 }
+.card-image-content {
+    flex-shrink: 0; /* ไม่ให้รูปภาพหดตัว */
+    width: 150px;
+}
+
 .product-card h3 {
     font-family: var(--font-heading);
     color: var(--dark-pink);
-    font-size: 1.2em;
-    margin: 1rem 1rem 0.5rem;
+    font-size: 1.5em;
+    margin: 0 0 0.5rem;
 }
-.product-card .product-price {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: var(--primary-pink);
-    margin: 0.5rem 1rem 1rem;
+.product-card .product-desc {
+    font-size: 1em;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
 }
 
 .btn-view-details {
-    background-color: transparent;
-    border: 2px solid var(--primary-pink);
-    color: var(--primary-pink);
-    padding: 8px 20px;
-    border-radius: 50px;
+    background-color: var(--primary-pink);
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    font-size: 0.9em;
 }
 .btn-view-details:hover {
-    background-color: var(--primary-pink);
-    color: white;
-}
-.btn-order-social {
-    display: inline-block;
-    background-color: var(--accent-green);
-    color: white;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s;
-}
-.btn-order-social:hover {
-    background-color: #8FAB82;
+    background-color: var(--dark-pink);
 }
 
+/* ทำให้การ์ดเรียงแนวตั้งบนจอมือถือ */
+@media (max-width: 500px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    .product-card {
+        flex-direction: column-reverse; /* เอารูปขึ้นบน */
+        text-align: center;
+    }
+    .card-image-content {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+/* ============================================= */
 
-/* 8. Modal Styles */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.6);
-}
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 800px;
-    width: 90%;
-    position: relative;
-    animation: fadeIn 0.5s;
-    text-align: left;
-}
-
-.close-button {
-    color: #aaa;
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.close-button:hover,
-.close-button:focus {
-    color: black;
-}
-.modal-body {
-    display: flex;
-    gap: 30px;
-}
-#modal-img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.modal-details h2 { margin-top: 0; }
-.modal-details h4 { margin-bottom: 0.5rem; color: var(--dark-pink); }
-.modal-details p { font-size: 1em; }
-.modal-details .btn-order-social { margin-top: 1rem; }
-@media (max-width: 768px) {
-    .modal-body { flex-direction: column; align-items: center; text-align: center; }
-}
-
-/* 9. Animations */
-.fade-in {
-    animation: fadeIn 1s ease-in-out forwards;
-}
-
-.fade-out {
-    animation: fadeOut 0.5s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-/* 10. Footer */
-footer {
-    padding: 2rem 0;
-    font-size: 0.9em;
-    color: var(--dark-pink);
-}
+/* (โค้ดส่วนที่เหลือ Modal, Animations, Footer สามารถใช้ของเดิมได้เลย) */
+/* ... */
