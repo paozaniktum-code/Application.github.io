@@ -3,124 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heaven and Beauty</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <title>Rasm - Wellness & Beauty</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-    <div id="splash-screen" class="container fade-in">
-        <header>
-            <h1>Heaven and Beauty</h1>
-            <p class="tagline">Organic Beauty, Divinely Made.</p>
-        </header>
-        <main>
-            <p>สัมผัสความงามอันบริสุทธิ์จากธรรมชาติ<br>ที่จะปรนนิบัติผิวและจิตใจของคุณ</p>
-            <button id="enter-button" class="cta-button">เข้าสู่เว็บไซต์</button>
-        </main>
-    </div>
-
-    <div id="main-content" style="display: none;">
+    <header>
         <nav>
-             <ul class="menu">
-                <li><a href="#home">หน้าหลัก</a></li>
-                <li><a href="#products">สินค้า</a></li>
-                <li><a href="#">เกี่ยวกับเรา</a></li>
-                <li><a href="#contact">ติดต่อเรา</a></li>
+            <div class="logo">
+                <a href="#">Rasm</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact Us</a></li>
             </ul>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                <button class="shop-now-btn">Shop Now</button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
+    </header>
 
-        <div class="page-container">
-            <section id="home">
-                 <h2>ยินดีต้อนรับสู่ Heaven and Beauty</h2>
-                 <p>เราคัดสรรส่วนผสมที่ดีที่สุดจากธรรมชาติ เพื่อสร้างสรรค์ผลิตภัณฑ์ออร์แกนิคที่ปลอดภัยและอ่อนโยนต่อผิวคุณ</p>
-            </section>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Luxurious skincare products<br>premium ingredients to provide</h1>
+                <p>Embark on a skincare journey that celebrates the essence of vibrant beauty. Our botanical skincare collection is a symphony.</p>
+                <button class="btn-primary">Shop Now</button>
+            </div>
+            <div class="hero-image">
+                <img src="https://i.ibb.co/6PqjBgr/hero-woman.png" alt="Woman with skincare product">
+            </div>
+        </section>
 
-            <hr>
-
-            <section id="products">
-                <h2>Our Signature Collection</h2>
-                <div class="product-grid">
-                    <div class="product-card" data-product-id="0">
-                        <div class="card-text-content">
-                            <p class="product-desc">เซรั่มเนื้อบางเบา ช่วยฟื้นฟูผิวให้กระจ่างใส ลดเลือนจุดด่างดำ พร้อมเติมความชุ่มชื้น</p>
-                            <button class="btn-view-details">Read More</button>
-                        </div>
-                        <div class="card-image-content">
-                            <img src="https://placehold.co/300x200/F8E8EE/B48B92?text=Serum" alt="Celestial Glow Facial Serum">
-                        </div>
-                    </div>
-                    <div class="product-card" data-product-id="1">
-                         <div class="card-text-content">
-                            <p class="product-desc">โทนเนอร์ปลอบประโลมผิว ลดการระคายเคืองและรอยแดง ปรับสมดุลให้ผิวสดชื่น</p>
-                            <button class="btn-view-details">Read More</button>
-                        </div>
-                        <div class="card-image-content">
-                            <img src="https://placehold.co/300x200/F8E8EE/B48B92?text=Toner" alt="Rose Quartz Soothing Toner">
-                        </div>
-                    </div>
-                    <div class="product-card" data-product-id="2">
-                        <div class="card-text-content">
-                            <p class="product-desc">โฟมล้างหน้าเนื้อมูสเนียนนุ่ม ทำความสะอาดล้ำลึกแต่อ่อนโยน ไม่ทำให้ผิวแห้งตึง</p>
-                            <button class="btn-view-details">Read More</button>
-                        </div>
-                        <div class="card-image-content">
-                            <img src="https://placehold.co/300x200/F8E8EE/B48B92?text=Cleanser" alt="Cloud Cleanse Foaming Cleanser">
-                        </div>
-                    </div>
-                    <div class="product-card" data-product-id="3">
-                        <div class="card-text-content">
-                            <p class="product-desc">บอดี้ออยล์สูตรพรีเมียม บำรุงผิวให้เนียนนุ่มชุ่มชื้นยาวนาน กลิ่นหอมผ่อนคลาย</p>
-                            <button class="btn-view-details">Read More</button>
-                        </div>
-                        <div class="card-image-content">
-                            <img src="https://placehold.co/300x200/F8E8EE/B48B92?text=Body+Oil" alt="Eden Garden Botanical Body Oil">
-                        </div>
-                    </div>
+        <section class="products">
+            <div class="section-header">
+                <h2>Reveal Your Beauty Pairing with Rasm's</h2>
+                <a href="#" class="view-more">View More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://i.ibb.co/k2WkL2b/product1.png" alt="Milk Cream">
+                    <h3>Milk Cream</h3>
+                    <div class="stars">★★★★☆</div>
+                    <p class="price">$32.00</p>
                 </div>
-                 </section>
-            
-            <hr>
-
-            <section id="contact">
-                <h2>ช่องทางการติดต่อ</h2>
-                <p>คุณสามารถสอบถามข้อมูลเพิ่มเติมเกี่ยวกับผลิตภัณฑ์ได้ที่</p>
-                <p><strong>Email:</strong> contact@heavenandbeauty.com</p>
-                <div class="social-links">
-                    <a href="#">Facebook</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">LINE</a>
+                <div class="product-card">
+                    <img src="https://i.ibb.co/hZ5H3Vb/product2.png" alt="Face Foundation">
+                    <h3>Face Foundation</h3>
+                    <div class="stars">★★★★★</div>
+                    <p class="price">$25.00</p>
                 </div>
-            </section>
-        </div>
-        
-        <footer>
-            <p>&copy; <span id="currentYear">2025</span> Heaven and Beauty. All Rights Reserved.</p>
-        </footer>
-    </div>
-    
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">×</span>
-            <div class="modal-body">
-                <img id="modal-img" src="https://placehold.co/300x300" alt="Product Image">
-                <div class="modal-details">
-                    <h2 id="modal-title">Product Title</h2>
-                    <p id="modal-price" class="product-price">฿ 0</p>
-                    <p id="modal-desc">Full product description goes here.</p>
-                    <h4>ส่วนประกอบสำคัญ:</h4>
-                    <p id="modal-ingredients">List of ingredients.</p>
-                    <a id="modal-order-btn" href="#" target="_blank" class="btn-order-social">สั่งซื้อเลย</a>
+                <div class="product-card">
+                    <img src="https://i.ibb.co/y4p7PjJ/product3.png" alt="Skincare Cream">
+                    <h3>Skincare Cream</h3>
+                    <div class="stars">★★★★☆</div>
+                    <p class="price">$45.00</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.ibb.co/RSCM21q/product4.png" alt="Face Cream">
+                    <h3>Face Cream</h3>
+                    <div class="stars">★★★★★</div>
+                    <p class="price">$38.00</p>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <script src="script.js"></script>
+        </section>
 
+        <section class="blog">
+             <div class="section-header">
+                <h2>Our most recent advancements and changes</h2>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-post">
+                    <img src="https://i.ibb.co/Q8QJ5j0/blog1.png" alt="Blog Post 1">
+                    <div class="blog-content">
+                        <h3>Enchanté Elegance: The Pure Cosmetics Gallery</h3>
+                        <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-post">
+                    <img src="https://i.ibb.co/Qn1C9dY/blog2.png" alt="Blog Post 2">
+                    <div class="blog-content">
+                        <h3>Chic Charm: Cosmetics Collection Haven</h3>
+                         <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-post">
+                    <img src="https://i.ibb.co/yY1h2d0/blog3.png" alt="Blog Post 3">
+                     <div class="blog-content">
+                        <h3>Luxe Looks: Beauty Emporium Emporian.</h3>
+                         <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3 class="logo">Rasm</h3>
+                <p>We are dedicated to creating skincare that is clean, effective, and cruelty-free.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Link</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Cosmetics Shop</a></li>
+                    <li><a href="#">Privacy Notice</a></li>
+                    <li><a href="#">New Arrival</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Paltan, NY City</p>
+                <p><i class="fas fa-phone-alt"></i> 123-456-7890</p>
+                <p><i class="fas fa-envelope"></i> example@rasm.com</p>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Sign up to get updates & news about us.</p>
+                <form>
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rasm. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
