@@ -9,10 +9,17 @@ const copyrightYear = document.getElementById('currentYear');
 
 // 2. Add an event listener to the "Enter" button
 enterButton.addEventListener('click', () => {
+    // Add the fade-out animation class to the splash screen
     splashScreen.classList.add('fade-out');
+
+    // Wait for the fade-out animation to finish (500ms = 0.5s)
     setTimeout(() => {
+        // Hide the splash screen completely
         splashScreen.style.display = 'none';
+
+        // Show the main content area
         mainContent.style.display = 'block';
+        // Add the fade-in animation class to the main content
         mainContent.classList.add('fade-in');
     }, 500);
 });
@@ -22,9 +29,3 @@ enterButton.addEventListener('click', () => {
 if (copyrightYear) {
     copyrightYear.textContent = new Date().getFullYear();
 }
-
-
-// ================================================================
-// ===== ส่วนที่ถูกลบออก (Product Button Interaction) =====
-// โค้ดที่ควบคุมปุ่ม Add to Cart เดิมได้ถูกลบออกจากส่วนนี้ไปแล้ว
-// ================================================================
