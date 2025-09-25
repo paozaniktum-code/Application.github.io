@@ -1,6 +1,6 @@
 /* --- CSS STYLES --- */
 
-/* 1. General Setup */
+/* 1. General Setup & Background */
 :root {
     --pink-bg: #FEF5F7;      
     --primary-pink: #D8A7B1; 
@@ -13,21 +13,34 @@
 
 body {
     font-family: var(--font-body);
-    background-color: var(--pink-bg);
+    background-image: url('background.jpg'); 
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
     color: var(--text-color);
     margin: 0;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     text-align: center;
 }
 
-/* 2. Main Container */
-.container {
+/* 2. Page Containers & Overlays */
+.container { /* For Splash Screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: rgba(255, 245, 247, 0.85); /* Overlay */
+}
+
+.page-container { /* For Main Content */
     max-width: 960px;
     width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9); /* Overlay */
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
 }
 
 /* 3. Typography */
@@ -162,7 +175,6 @@ hr {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2rem;
-    text-align: left;
 }
 
 .product-card {
@@ -171,56 +183,119 @@ hr {
     box-shadow: 0 4px 20px rgba(180, 139, 146, 0.1);
     overflow: hidden;
     transition: all 0.3s ease;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    cursor: pointer;
 }
-
 .product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 30px rgba(180, 139, 146, 0.15);
 }
-
 .product-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
     display: block;
 }
-
 .product-card h3 {
     font-family: var(--font-heading);
     color: var(--dark-pink);
-    font-size: 1.3em;
-    margin: 1rem 1.5rem 0.5rem;
+    font-size: 1.2em;
+    margin: 1rem 1rem 0.5rem;
 }
-
-.product-card .product-desc {
-    font-size: 0.9em;
-    margin: 0 1.5rem;
-    height: 50px;
-}
-
 .product-card .product-price {
     font-size: 1.2em;
     font-weight: bold;
     color: var(--primary-pink);
-    margin: 1rem 1.5rem;
+    margin: 0.5rem 1rem 1rem;
 }
 
+.btn-view-details {
+    background-color: transparent;
+    border: 2px solid var(--primary-pink);
+    color: var(--primary-pink);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-view-details:hover {
+    background-color: var(--primary-pink);
+    color: white;
+}
 .btn-order-social {
-    display: block;
+    display: inline-block;
     background-color: var(--accent-green);
     color: white;
-    text-align: center;
+    padding: 12px 30px;
+    border-radius: 50px;
     text-decoration: none;
-    padding: 0.8rem;
     font-weight: 600;
     transition: background-color 0.3s;
 }
-
 .btn-order-social:hover {
     background-color: #8FAB82;
 }
 
-/* 8. Animations */
+
+/* 8. Modal Styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    animation: fadeIn 0.5s;
+    text-align: left;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-button:hover,
+.close-button:focus {
+    color: black;
+}
+.modal-body {
+    display: flex;
+    gap: 30px;
+}
+#modal-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.modal-details h2 { margin-top: 0; }
+.modal-details h4 { margin-bottom: 0.5rem; color: var(--dark-pink); }
+.modal-details p { font-size: 1em; }
+.modal-details .btn-order-social { margin-top: 1rem; }
+@media (max-width: 768px) {
+    .modal-body { flex-direction: column; align-items: center; text-align: center; }
+}
+
+/* 9. Animations */
 .fade-in {
     animation: fadeIn 1s ease-in-out forwards;
 }
@@ -239,7 +314,7 @@ hr {
     to { opacity: 0; }
 }
 
-/* 9. Footer */
+/* 10. Footer */
 footer {
     padding: 2rem 0;
     font-size: 0.9em;
