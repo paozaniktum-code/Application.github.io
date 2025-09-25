@@ -1,541 +1,177 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>วงล้อสุ่มรายชื่อ</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* พื้นหลังไล่สีให้สดใสและลึก */
-    body {
-      background: radial-gradient(1200px 600px at 70% -10%, #a78bfa 5%, #3b82f6 45%, #0ea5e9 80%, #0ea5e900 100%),
-                  linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #7c3aed 100%);
-    }
-    /* เงาและความคมชัดของแคนวาส */
-    canvas { filter: drop-shadow(0 10px 24px rgba(0,0,0,0.35)); }
-    /* ปุ่ม toggle ล็อค */
-    .switch {
-      position: relative; width: 48px; height: 28px; display: inline-block;
-    }
-    .switch input { display: none; }
-    .slider {
-      position: absolute; cursor: pointer; inset: 0; background: #cbd5e1; border-radius: 9999px; transition: .25s;
-    }
-    .slider:before {
-      content: ""; position: absolute; height: 22px; width: 22px; left: 3px; top: 3px; background: white; border-radius: 9999px; transition: .25s;
-      box-shadow: 0 4px 10px rgba(0,0,0,.2);
-    }
-    input:checked + .slider { background: #22c55e; }
-    input:checked + .slider:before { transform: translateX(20px); }
-    /* ตัวชี้ (Pointer) ที่ด้านบนของล้อ */
-    .pointer {
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 36px solid #ef4444;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
-      z-index: 10;
-    }
-    /* แถบแจ้งสถานะ */
-    .badge { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); }
-
-    /* --- ✨ NEW: Styles for In-Wheel Popup & Confetti --- */
-    #wheelPopup.visible {
-        opacity: 1;
-        pointer-events: auto; /* ทำให้ pop-up คลิกได้เมื่อแสดงผล */
-        transition: opacity 0.3s ease-in-out;
-    }
-    #wheelPopup.visible #winnerPopupContent {
-        animation: popup-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-    @keyframes popup-appear {
-        from { transform: scale(0.8); }
-        to { transform: scale(1); }
-    }
-
-    /* Confetti Effect */
-    .confetti {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: #f00;
-        opacity: 0;
-        top: -20px;
-        animation: confetti-fall 3s linear forwards;
-    }
-    @keyframes confetti-fall {
-        0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1; }
-        100% { transform: translateY(400px) rotateZ(720deg); opacity: 0; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>วงล้อสุ่มรายชื่อ — Advanced</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(1200px 600px at 70% -10%, #a78bfa 5%, #3b82f6 45%, #0ea5e9 80%, #0ea5e900 100%),
+                  linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #7c3aed 100%);
+    }
+    canvas { filter: drop-shadow(0 10px 24px rgba(0,0,0,0.35)); }
+    .switch { position: relative; width: 48px; height: 28px; display: inline-block; }
+    .switch input { display: none; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background: #cbd5e1; border-radius: 9999px; transition: .25s; }
+    .slider:before { content: ""; position: absolute; height: 22px; width: 22px; left: 3px; top: 3px; background: white; border-radius: 9999px; transition: .25s; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
+    input:checked + .slider { background: #22c55e; }
+    input:checked + .slider:before { transform: translateX(20px); }
+    .pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 36px solid #ef4444; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); z-index: 10; }
+    .badge { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); }
+    #wheelPopup { opacity: 0; pointer-events: none; transition: opacity .3s ease-in-out; }
+    #wheelPopup.visible { opacity: 1; pointer-events: auto; }
+    #wheelPopup.visible #winnerPopupContent { animation: popup-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    @keyframes popup-appear { from { transform: scale(.8) } to { transform: scale(1) } }
+    .confetti { position: absolute; width: 10px; height: 10px; background: #f00; opacity: 0; top: -20px; animation: confetti-fall 3s linear forwards; }
+    @keyframes confetti-fall { 0% { transform: translateY(-20px) rotateZ(0deg); opacity: 1 } 100% { transform: translateY(400px) rotateZ(720deg); opacity: 0 } }
+    input.weightInput { width: 60px; }
+  </style>
 </head>
 <body class="min-h-screen text-slate-100 antialiased">
-  <div class="max-w-7xl mx-auto px-6 py-10">
-    <header class="mb-8">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">วงล้อสุ่มรายชื่อ</h1>
-          <p class="text-slate-200/90 mt-2">เพิ่มรายชื่อ หมุนลุ้น</p>
-        </div>
-        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl badge">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span class="text-sm">พร้อมใช้งาน • โต้ตอบได้จริง</span>
-        </div>
-      </div>
-    </header>
+  <div class="max-w-7xl mx-auto px-6 py-10">
+    <header class="mb-8">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">วงล้อสุ่มรายชื่อ</h1>
+          <p class="text-slate-200/90 mt-2">เพิ่มรายชื่อ หมุนลุ้น — พร้อมเสียงและน้ำหนัก</p>
+        </div>
+      </div>
+    </header>
 
-    <main class="grid grid-cols-1 lg:grid-cols-2 gap-y-[98px] lg:gap-y-16 gap-x-[98px] lg:gap-x-[114px] items-start">
-      <section class="relative">
-        <div class="relative mx-auto w-full max-w-[560px] aspect-square">
-          <div class="pointer"></div>
-          <canvas id="wheel" width="800" height="800" class="w-full h-full rounded-full bg-slate-900/10"></canvas>
-          
-          <div id="wheelPopup" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 z-20">
-              <div id="winnerPopupContent" class="relative text-center p-8 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/20 shadow-2xl w-10/12 max-w-sm overflow-hidden" style="transform: scale(0.8);">
-                  <div id="confettiContainer" class="absolute inset-0 pointer-events-none"></div>
-                  <p class="text-xl text-amber-300 font-semibold mb-1">ยินดีด้วย!</p>
-                  <h2 id="winnerNamePopup" class="text-4xl md:text-5xl font-bold text-white tracking-tight break-words">-</h2>
-                  <button id="closePopupBtn" class="mt-6 px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm font-semibold pointer-events-auto">
-                    ปิด
-                  </button>
-              </div>
-          </div>
+    <main class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <section class="relative">
+        <div class="relative mx-auto w-full max-w-[560px] aspect-square">
+          <div class="pointer"></div>
+          <canvas id="wheel" width="800" height="800" class="w-full h-full rounded-full bg-slate-900/10"></canvas>
+          <div id="wheelPopup" class="absolute inset-0 flex items-center justify-center z-20">
+            <div id="winnerPopupContent" class="relative text-center p-8 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/20 shadow-2xl w-10/12 max-w-sm overflow-hidden" style="transform: scale(.8);">
+              <div id="confettiContainer" class="absolute inset-0 pointer-events-none"></div>
+              <p class="text-xl text-amber-300 font-semibold mb-1">ยินดีด้วย!</p>
+              <h2 id="winnerNamePopup" class="text-4xl md:text-5xl font-bold text-white tracking-tight break-words">-</h2>
+              <button id="closePopupBtn" class="mt-6 px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm font-semibold">ปิด</button>
+            </div>
+          </div>
+          <div id="resultBox" class="absolute -bottom-12 left-1/2 text-center" style="transform: translate(-50%, calc(100% + 40px));">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/20">
+              <span class="text-sm text-white/80">ผลลัพธ์</span>
+              <strong id="resultName" class="text-white font-semibold">-</strong>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button id="spinBtn" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 font-semibold text-slate-900">หมุนวงล้อ</button>
+          <button id="resetBtn" class="px-5 py-3 rounded-xl bg-slate-100/10 hover:bg-slate-100/20 font-semibold text-white border border-white/20">รีเซ็ต</button>
+        </div>
+      </section>
+      <aside class="w-full">
+        <div class="rounded-2xl bg-white/10 backdrop-blur border border-white/20 p-5">
+          <form id="addForm" class="flex gap-3">
+            <input id="nameInput" type="text" placeholder="ชื่อ" class="flex-1 px-4 py-3 rounded-xl bg-white/90 text-slate-900"/>
+            <input id="weightInput" type="number" min="1" value="1" class="weightInput px-3 py-2 rounded-xl bg-white/90 text-slate-900" title="น้ำหนัก"/>
+            <button class="px-5 py-3 rounded-xl bg-sky-400 font-semibold text-slate-900">เพิ่ม</button>
+          </form>
+          <ul id="nameList" class="mt-5 grid grid-cols-1 gap-2"></ul>
+        </div>
+      </aside>
+    </main>
+  </div>
 
-          <div id="resultBox" class="absolute -bottom-12 left-1/2 text-center" style="transform: translate(-50%, calc(100% + 40px));">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/20">
-              <span class="text-sm text-white/80">ผลลัพธ์</span>
-              <strong id="resultName" class="text-white font-semibold">-</strong>
-            </div>
-          </div>
-        </div>
+  <audio id="spinSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+  <audio id="winSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
 
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <button id="spinBtn" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[.98] transition font-semibold text-slate-900 shadow-lg shadow-emerald-900/20">
-            หมุนวงล้อ
-          </button>
-          <button id="resetBtn" class="px-5 py-3 rounded-xl bg-slate-100/10 hover:bg-slate-100/20 active:scale-[.98] transition font-semibold text-white backdrop-blur border border-white/20">
-            รีเซ็ตการหมุน
-          </button>
-        </div>
-      </section>
+  <script>
+    const wheel=document.getElementById('wheel'); const ctx=wheel.getContext('2d');
+    const spinBtn=document.getElementById('spinBtn'); const resetBtn=document.getElementById('resetBtn');
+    const addForm=document.getElementById('addForm'); const nameInput=document.getElementById('nameInput');
+    const weightInput=document.getElementById('weightInput'); const nameList=document.getElementById('nameList');
+    const resultName=document.getElementById('resultName');
+    const wheelPopup=document.getElementById('wheelPopup'); const winnerNamePopup=document.getElementById('winnerNamePopup');
+    const closePopupBtn=document.getElementById('closePopupBtn');
+    const spinSound=document.getElementById('spinSound'); const winSound=document.getElementById('winSound');
 
-      <aside class="w-full">
-        <div class="rounded-2xl bg-white/10 backdrop-blur border border-white/20 p-5">
-          <form id="addForm" class="flex flex-col sm:flex-row gap-3">
-            <div class="flex-1">
-              <label for="nameInput" class="block text-sm mb-1 text-white/90">เพิ่มชื่อใหม่</label>
-              <input id="nameInput" type="text" placeholder="เช่น ตูน, เก๋, บอส"
-                class="w-full px-4 py-3 rounded-xl bg-white/90 text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-sky-300/50"/>
-            </div>
-            <div class="flex items-end">
-              <button class="px-5 py-3 rounded-xl bg-sky-400 hover:bg-sky-300 active:scale-[.98] transition font-semibold text-slate-900">
-                เพิ่มชื่อ
-              </button>
-            </div>
-          </form>
+    let entries=[{id:crypto.randomUUID(),name:'ตูน',weight:1,color:'#22c55e'},
+                 {id:crypto.randomUUID(),name:'เก๋',weight:2,color:'#3b82f6'},
+                 {id:crypto.randomUUID(),name:'บอส',weight:1,color:'#f59e0b'}];
 
-          <div class="mt-5">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-semibold">รายชื่อ</h3>
-              <div class="text-xs text-white/70">
-                อย่างน้อย 2 ชื่อจึงจะหมุนได้
-              </div>
-            </div>
-            <ul id="nameList" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></ul>
+    let rotation=0; let spinning=false; let animId;
 
-            <div class="mt-3 flex flex-wrap gap-2">
-              <button id="shuffleBtn" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm">
-                สลับลำดับ
-              </button>
-              <button id="clearAllBtn" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm">
-                ลบทั้งหมด
-              </button>
-            </div>
-          </div>
+    function drawWheel(){
+      const w=wheel.width,h=wheel.height,cx=w/2,cy=h/2,r=Math.min(cx,cy)-14;
+      ctx.clearRect(0,0,w,h); ctx.save(); ctx.translate(cx,cy);
+      const totalWeight=entries.reduce((s,e)=>s+e.weight,0);
+      let angleStart=rotation;
+      entries.forEach(e=>{
+        const angle=e.weight/totalWeight*2*Math.PI;
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0,r,angleStart,angleStart+angle);
+        ctx.fillStyle=e.color; ctx.fill();
+        ctx.strokeStyle='white'; ctx.stroke();
+        ctx.save(); ctx.rotate(angleStart+angle/2);
+        ctx.fillStyle='#000'; ctx.font='bold 20px sans-serif'; ctx.textAlign='right';
+        ctx.fillText(e.name,r-10,0); ctx.restore();
+        angleStart+=angle;
+      });
+      ctx.restore();
+    }
 
-          <hr class="my-6 border-white/20"/>
+    function getWinner(){
+      const totalWeight=entries.reduce((s,e)=>s+e.weight,0);
+      const angle=( -rotation%(2*Math.PI) +2*Math.PI )%(2*Math.PI);
+      let acc=0;
+      for(let e of entries){
+        const seg=e.weight/totalWeight*2*Math.PI;
+        if(angle<acc+seg) return e;
+        acc+=seg;
+      }
+      return entries[0];
+    }
 
-          <div class="space-y-4">
-            <div class="flex items-center justify-between gap-4">
-              <div>
-                <div class="font-semibold">ล็อคผลลัพธ์</div>
-                <p class="text-sm text-white/80">เลือกชื่อให้หยุดตรงตำแหน่งที่กำหนด</p>
-              </div>
-              <label class="switch">
-                <input id="lockToggle" type="checkbox">
-                <span class="slider"></span>
-              </label>
-            </div>
+    function spin(){
+      if(spinning||entries.length<2)return;
+      spinning=true; const start=rotation;
+      const extra=10*Math.PI+Math.random()*2*Math.PI;
+      const target=start+extra; const duration=5000; const t0=performance.now();
+      spinSound.play();
+      const step=(t)=>{
+        const p=Math.min((t-t0)/duration,1);
+        rotation=start+(target-start)*(1-Math.pow(1-p,3));
+        drawWheel();
+        if(p<1){animId=requestAnimationFrame(step);}else{
+          spinning=false;
+          const winner=getWinner();
+          resultName.textContent=winner.name;
+          winnerNamePopup.textContent=winner.name;
+          wheelPopup.classList.add('visible');
+          winSound.play();
+        }
+      };
+      animId=requestAnimationFrame(step);
+    }
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm mb-1 text-white/90">เลือกล๊อคชื่อ</label>
-                <select id="lockName" class="w-full px-4 py-3 rounded-xl bg-white/90 text-slate-900 focus:outline-none">
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm mb-1 text-white/90">ตำแหน่งหยุด</label>
-                <div class="grid grid-cols-4 gap-2">
-                  <button data-pos="top" class="posBtn px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm">บน</button>
-                  <button data-pos="right" class="posBtn px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm">ขวา</button>
-                  <button data-pos="bottom" class="posBtn px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm">ล่าง</button>
-                  <button data-pos="left" class="posBtn px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-sm">ซ้าย</button>
-                </div>
-                <p class="text-xs text-white/70 mt-2">ตำแหน่งคือจุดที่ชื่อจะไปหยุดตรงกับตัวชี้</p>
-              </div>
-            </div>
+    addForm.addEventListener('submit',e=>{
+      e.preventDefault();
+      if(!nameInput.value.trim())return;
+      entries.push({id:crypto.randomUUID(),name:nameInput.value.trim(),weight:parseInt(weightInput.value)||1,color:'#'+Math.floor(Math.random()*16777215).toString(16)});
+      nameInput.value=''; weightInput.value=1; renderList(); drawWheel();
+    });
 
-            <div class="text-xs text-white/80">
-              เคล็ดลับ: เปิด “ล็อคผลลัพธ์” เลือกชื่อ แล้วกด “หมุนวงล้อ” เพื่อให้หยุดตรงตำแหน่งที่เลือก
-            </div>
-          </div>
-        </div>
-      </aside>
-    </main>
-  </div>
+    function renderList(){
+      nameList.innerHTML='';
+      entries.forEach(e=>{
+        const li=document.createElement('li');
+        li.className='flex justify-between bg-white/10 px-3 py-2 rounded-lg';
+        li.innerHTML=`<span>${e.name} (x${e.weight})</span>`;
+        nameList.appendChild(li);
+      });
+    }
 
-  <script>
-    // ข้อมูลและสถานะ
-    const wheel = document.getElementById('wheel');
-    const ctx = wheel.getContext('2d');
-    const spinBtn = document.getElementById('spinBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const addForm = document.getElementById('addForm');
-    const nameInput = document.getElementById('nameInput');
-    const nameList = document.getElementById('nameList');
-    const resultName = document.getElementById('resultName');
-    const shuffleBtn = document.getElementById('shuffleBtn');
-    const clearAllBtn = document.getElementById('clearAllBtn');
+    spinBtn.onclick=spin; resetBtn.onclick=()=>{rotation=0;drawWheel();resultName.textContent='-';wheelPopup.classList.remove('visible');};
+    closePopupBtn.onclick=()=>wheelPopup.classList.remove('visible');
 
-    const lockToggle = document.getElementById('lockToggle');
-    const lockName = document.getElementById('lockName');
-    const posButtons = Array.from(document.querySelectorAll('.posBtn'));
+    function fitCanvas(){const ratio=window.devicePixelRatio||1;const rect=wheel.getBoundingClientRect();wheel.width=rect.width*ratio;wheel.height=rect.height*ratio;ctx.scale(ratio,ratio);drawWheel();}
+    window.addEventListener('resize',fitCanvas);
 
-    // --- ✨ NEW: In-Wheel Popup elements
-    const wheelPopup = document.getElementById('wheelPopup');
-    const winnerNamePopup = document.getElementById('winnerNamePopup');
-    const closePopupBtn = document.getElementById('closePopupBtn');
-    const confettiContainer = document.getElementById('confettiContainer');
-
-    // กำหนดตำแหน่งหยุด
-    const STOP_POS = { top: 0, right: Math.PI/2, bottom: Math.PI, left: -Math.PI/2 };
-    let selectedStopPos = 'top';
-
-    // สีสลับสวยๆ
-    const COLORS = ['#22c55e','#06b6d4','#0ea5e9','#6366f1','#f59e0b','#ef4444','#a78bfa','#10b981','#f97316','#e879f9','#14b8a6'];
-    let colorIndex = 0;
-    const nextColor = () => COLORS[(colorIndex++) % COLORS.length];
-
-    // รายชื่อเริ่มต้น
-    let entries = [
-      { id: crypto.randomUUID(), name: 'ตูน', color: nextColor() },
-      { id: crypto.randomUUID(), name: 'เก๋', color: nextColor() },
-      { id: crypto.randomUUID(), name: 'บอส', color: nextColor() },
-      { id: crypto.randomUUID(), name: 'มีน', color: nextColor() },
-    ];
-
-    // สถานะการหมุน
-    let rotation = 0; // เรเดียน
-    let animId = null;
-    let spinning = false;
-    let finalRotation = null;
-    const pointerAngle = -Math.PI/2;
-
-    // ฟังก์ชันช่วย
-    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-    const normAngle = (a) => {
-      let x = a % (Math.PI * 2);
-      return x < 0 ? x + Math.PI * 2 : x;
-    };
-    function easeOutQuint(t){ return 1 - Math.pow(1 - t, 5); }
-
-    function renderEntriesList(){
-      nameList.innerHTML = '';
-      if(entries.length === 0){
-        nameList.innerHTML = '<li class="col-span-full text-center text-sm text-white/80 py-3">ยังไม่มีรายชื่อ</li>';
-      }
-      entries.forEach((e, idx) => {
-        const li = document.createElement('li');
-        li.className = 'flex items-center justify-between gap-3 px-3 py-2 rounded-xl bg-white/10 border border-white/20';
-        li.innerHTML = `
-          <div class="flex items-center gap-3 min-w-0">
-            <span class="w-4 h-4 rounded-full" style="background:${e.color}"></span>
-            <span class="truncate">${idx+1}. ${e.name}</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <button class="px-2 py-1 text-xs rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 moveUp">ขึ้น</button>
-            <button class="px-2 py-1 text-xs rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 moveDown">ลง</button>
-            <button class="px-2 py-1 text-xs rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-100 border border-red-400/30 delete">ลบ</button>
-          </div>`;
-        li.querySelector('.delete').addEventListener('click', () => {
-          entries = entries.filter(x => x.id !== e.id);
-          if(lockName.value === e.id) lockName.value = '';
-          renderEntriesList(); syncLockOptions(); drawWheel(); updateButtonsState();
-        });
-        li.querySelector('.moveUp').addEventListener('click', () => {
-          const i = entries.findIndex(x => x.id === e.id);
-          if(i > 0){ [entries[i-1], entries[i]] = [entries[i], entries[i-1]]; renderEntriesList(); syncLockOptions(); drawWheel(); }
-        });
-        li.querySelector('.moveDown').addEventListener('click', () => {
-          const i = entries.findIndex(x => x.id === e.id);
-          if(i < entries.length-1){ [entries[i+1], entries[i]] = [entries[i], entries[i+1]]; renderEntriesList(); syncLockOptions(); drawWheel(); }
-        });
-        nameList.appendChild(li);
-      });
-    }
-
-    function syncLockOptions(){
-      lockName.innerHTML = '';
-      if(entries.length === 0){
-        const opt = document.createElement('option');
-        opt.value = ''; opt.textContent = '— ไม่มีรายชื่อ —';
-        lockName.appendChild(opt);
-      } else {
-        const opt0 = document.createElement('option');
-        opt0.value = ''; opt0.textContent = '— เลือกชื่อ —';
-        lockName.appendChild(opt0);
-        entries.forEach(e=>{
-          const opt = document.createElement('option');
-          opt.value = e.id; opt.textContent = e.name;
-          lockName.appendChild(opt);
-        });
-      }
-      lockName.disabled = !lockToggle.checked || entries.length === 0;
-      posButtons.forEach(btn => {
-        btn.disabled = !lockToggle.checked || entries.length === 0;
-        btn.classList.toggle('opacity-60', btn.disabled);
-      });
-    }
-
-    function updateButtonsState(){
-      const canSpin = entries.length >= 2 && !spinning;
-      spinBtn.disabled = !canSpin;
-      spinBtn.classList.toggle('opacity-60', !canSpin);
-    }
-
-    function drawWheel(){
-      const w = wheel.width, h = wheel.height;
-      const cx = w/2, cy = h/2;
-      const r = Math.min(cx, cy) - 14;
-      ctx.clearRect(0,0,w,h);
-      ctx.save();
-      ctx.translate(cx, cy);
-      const n = entries.length || 1;
-      const base = (Math.PI * 2) / n;
-      for(let i=0;i<n;i++){
-        const start = i * base + rotation;
-        const end = start + base;
-        ctx.beginPath();
-        ctx.moveTo(0,0);
-        ctx.arc(0,0,r, start, end);
-        ctx.closePath();
-        ctx.fillStyle = entries[i]?.color || '#334155';
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(255,255,255,.35)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(0,0,r, start, end);
-        ctx.stroke();
-        const mid = (start + end)/2;
-        ctx.save();
-        ctx.rotate(mid);
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'middle';
-        const maxTextWidth = r * 0.75;
-        let fontSize = Math.min(28, Math.max(12, (r * base) / 6));
-        ctx.font = `bold ${fontSize}px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial`;
-        ctx.fillStyle = '#0f172a';
-        const label = entries[i]?.name || '-';
-        let toDraw = label;
-        while(ctx.measureText(toDraw).width > maxTextWidth && toDraw.length > 1){
-          toDraw = toDraw.slice(0, -1);
-        }
-        if(toDraw !== label) toDraw = toDraw.slice(0, -1) + '…';
-        ctx.fillText(toDraw, r - 14, 0);
-        ctx.restore();
-      }
-      ctx.beginPath();
-      ctx.arc(0,0, r*0.22, 0, Math.PI*2);
-      const grd = ctx.createRadialGradient(0,0, r*0.05, 0,0, r*0.25);
-      grd.addColorStop(0, 'rgba(255,255,255,0.95)');
-      grd.addColorStop(1, 'rgba(255,255,255,0.65)');
-      ctx.fillStyle = grd;
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(0,0, r+6, 0, Math.PI*2);
-      ctx.strokeStyle = 'rgba(0,0,0,.15)';
-      ctx.lineWidth = 8;
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    function getWinnerIndex(){
-      if(entries.length === 0) return -1;
-      const n = entries.length;
-      const base = (Math.PI * 2) / n;
-      const angleAtPointer = normAngle(pointerAngle - rotation);
-      let idx = Math.floor(angleAtPointer / base);
-      return clamp(idx, 0, n-1);
-    }
-
-    function showResult(){
-        const idx = getWinnerIndex();
-        const winner = entries[idx];
-        const winnerName = winner?.name || '-';
-        resultName.textContent = winnerName;
-        winnerNamePopup.textContent = winnerName;
-        wheelPopup.classList.add('visible');
-        triggerConfetti(winner?.color);
-    }
-
-    function triggerConfetti(baseColor) {
-        confettiContainer.innerHTML = '';
-        const confettiColors = [...COLORS];
-        if(baseColor) confettiColors.unshift(baseColor);
-        for(let i=0; i < 60; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-            confetti.style.animationDelay = Math.random() * 2 + 's';
-            confetti.style.transform = `scale(${Math.random() * 1.2 + 0.8})`;
-            confettiContainer.appendChild(confetti);
-        }
-    }
-
-    function calcEndRotationForIndex(index, posKey){
-      const n = entries.length;
-      const base = (Math.PI * 2) / n;
-      const desiredStopAngle = pointerAngle + (STOP_POS[posKey] || 0);
-
-      // === ✨ MODIFIED: Added jitter to locked spins to make them look natural ===
-      const jitter = (Math.random() - 0.5) * base * 0.9;
-      const target = desiredStopAngle - (index * base + base/2) + jitter;
-      // ========================================================================
-
-      const minSpins = 5;
-      const needOver = rotation + minSpins * Math.PI * 2;
-      const k = Math.ceil((needOver - target) / (Math.PI * 2));
-      return target + k * Math.PI * 2;
-    }
-
-    function calcEndRotationRandom(){
-      const n = entries.length;
-      const base = (Math.PI * 2) / n;
-      const idx = Math.floor(Math.random() * n);
-      const jitter = (Math.random() - 0.5) * base * 0.9;
-      const target = pointerAngle - (idx * base + base/2) + jitter;
-      const minSpins = 5;
-      const needOver = rotation + minSpins * Math.PI * 2;
-      const k = Math.ceil((needOver - target) / (Math.PI * 2));
-      return target + k * Math.PI * 2;
-    }
-
-    function animateTo(target){
-      if(spinning) cancelAnimationFrame(animId);
-      const start = rotation;
-      const total = target - start;
-      const duration = 8000 + Math.random() * 2000;
-      const t0 = performance.now();
-      spinning = true;
-      updateButtonsState();
-      wheelPopup.classList.remove('visible'); // ซ่อน pop-up เก่าก่อนหมุน
-
-      const step = (t)=>{
-        const p = clamp((t - t0) / duration, 0, 1);
-        const e = easeOutQuint(p);
-        rotation = start + total * e;
-        drawWheel();
-        if(p < 1){
-          animId = requestAnimationFrame(step);
-        }else{
-          spinning = false;
-          updateButtonsState();
-          drawWheel();
-          showResult();
-        }
-      };
-      animId = requestAnimationFrame(step);
-    }
-
-    addForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const val = nameInput.value.trim();
-      if(!val) return;
-      entries.push({ id: crypto.randomUUID(), name: val, color: nextColor() });
-      nameInput.value = '';
-      renderEntriesList(); syncLockOptions(); drawWheel(); updateButtonsState();
-    });
-
-    shuffleBtn.addEventListener('click', ()=>{
-      for(let i=entries.length-1; i>0; i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [entries[i], entries[j]] = [entries[j], entries[i]];
-      }
-      renderEntriesList(); syncLockOptions(); drawWheel();
-    });
-
-    clearAllBtn.addEventListener('click', ()=>{
-      entries = [];
-      renderEntriesList(); syncLockOptions(); drawWheel(); updateButtonsState();
-      resultName.textContent = '-';
-    });
-
-    lockToggle.addEventListener('change', ()=>{ syncLockOptions(); });
-    lockName.addEventListener('change', ()=>{});
-
-    posButtons.forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        selectedStopPos = btn.dataset.pos;
-        posButtons.forEach(b=> b.classList.remove('bg-white/30','border-white/40'));
-        btn.classList.add('bg-white/30','border-white/40');
-      });
-    });
-
-    (()=>{
-      const btnTop = posButtons.find(b=>b.dataset.pos==='top');
-      btnTop.classList.add('bg-white/30','border-white/40');
-    })();
-
-    spinBtn.addEventListener('click', ()=>{
-      if(spinning || entries.length < 2) return;
-      if(lockToggle.checked && lockName.value){
-        const idx = entries.findIndex(e => e.id === lockName.value);
-        finalRotation = (idx >= 0) ? calcEndRotationForIndex(idx, selectedStopPos) : calcEndRotationRandom();
-      }else{
-        finalRotation = calcEndRotationRandom();
-      }
-      animateTo(finalRotation);
-    });
-
-    resetBtn.addEventListener('click', ()=>{
-      if(spinning) { cancelAnimationFrame(animId); spinning = false; }
-      rotation = 0;
-      drawWheel();
-      resultName.textContent = '-';
-      updateButtonsState();
-      wheelPopup.classList.remove('visible');
-    });
-
-    closePopupBtn.addEventListener('click', () => {
-        wheelPopup.classList.remove('visible');
-    });
-
-    function fitCanvas(){
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = wheel.getBoundingClientRect();
-      wheel.width = Math.floor(rect.width * ratio);
-      wheel.height = Math.floor(rect.height * ratio);
-      ctx.setTransform(1,0,0,1,0,0);
-      ctx.scale(ratio, ratio);
-      drawWheel();
-    }
-    window.addEventListener('resize', fitCanvas);
-
-    renderEntriesList();
-    syncLockOptions();
-    lockName.value = '';
-    fitCanvas();
-    updateButtonsState();
-  </script>
+    renderList(); fitCanvas();
+  </script>
 </body>
 </html>
