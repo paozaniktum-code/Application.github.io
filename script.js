@@ -21,9 +21,23 @@ const navSlide = () => {
     });
 }
 
-navSlide();
+// Function to add shadow to header on scroll
+const headerScroll = () => {
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+}
 
-// Add keyframes for navLinkFade if you don't want to put it in CSS
+// Run all functions
+navSlide();
+headerScroll();
+
+// Add keyframes for navLinkFade dynamically
 const styleSheet = document.createElement("style");
 styleSheet.innerText = `
 @keyframes navLinkFade {
